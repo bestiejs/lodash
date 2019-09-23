@@ -3,7 +3,11 @@ module.exports = {
   'plugins': ['import'],
   'env': {
     'es6': true,
-    'node': true
+    'node': true,
+    'mocha': true
+  },
+  'globals': {
+    '_': 'readonly'
   },
   'parserOptions': {
     'ecmaVersion': 6,
