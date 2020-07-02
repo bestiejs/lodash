@@ -113,6 +113,7 @@
       weakSetTag = '[object WeakSet]';
 
   var arrayBufferTag = '[object ArrayBuffer]',
+      sharedArrayBufferTag = '[object SharedArrayBuffer]',
       dataViewTag = '[object DataView]',
       float32Tag = '[object Float32Array]',
       float64Tag = '[object Float64Array]',
@@ -9873,8 +9874,11 @@
         return isString(collection) ? stringSize(collection) : collection.length;
       }
       var tag = getTag(collection);
-      if (tag == mapTag || tag == setTag) {
+      if (tag === mapTag || tag === setTag) {
         return collection.size;
+      }
+      if (tag === arrayBufferTag || tag === sharedArrayBufferTag) {
+        return collection.byteLength
       }
       return baseKeys(collection).length;
     }
@@ -11517,6 +11521,9 @@
       }
       if (isPrototype(value)) {
         return !baseKeys(value).length;
+      }
+      if (tag === arrayBufferTag || tag === sharedArrayBufferTag) {
+        return !value.byteLength
       }
       for (var key in value) {
         if (hasOwnProperty.call(value, key)) {
