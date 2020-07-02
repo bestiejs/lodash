@@ -7501,6 +7501,29 @@
     }
 
     /**
+     * Inserts `value` at the given `index` into the `array`.
+     *
+     * @static
+     * @memberOf _
+     * @since 4.7.15
+     * @category Array
+     * @param {Array} array The array which will have an value inserted.
+     * @param {number} [index=0] The desired index of the inserted the value.
+     * @param {*} value The value to be inserted.
+     * @returns {Array} Returns a new array with the value inserted at the given index.
+     * @example
+     *
+     * _.insert(['Hey', 'Hi', 'Howdy'], 2, 'Hello')
+     * // => '['Hey', 'Hi', 'Hello', 'Howdy']'
+     * 
+     * _.insert(['Hey', 'Hi', 'Howdy'], -2, 'Hello')
+     * // => '["Hey", "Hello", "Hi", "Howdy"]'
+     */
+    function insert(array = [], index = 0, value) {
+      return [...array.slice(0, index), value, ...array.slice(index)];
+    }
+
+    /**
      * Creates an array of unique values that are included in all given arrays
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
      * for equality comparisons. The order and references of result values are
@@ -16622,6 +16645,7 @@
     lodash.functionsIn = functionsIn;
     lodash.groupBy = groupBy;
     lodash.initial = initial;
+    lodash.insert = insert;
     lodash.intersection = intersection;
     lodash.intersectionBy = intersectionBy;
     lodash.intersectionWith = intersectionWith;
