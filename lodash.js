@@ -231,6 +231,8 @@
       rsNonAstral = '[^' + rsAstralRange + ']',
       rsRegional = '(?:\\ud83c[\\udde6-\\uddff]){2}',
       rsSurrPair = '[\\ud800-\\udbff][\\udc00-\\udfff]',
+      rsTagSpec = '(?:\\udb40[\\udc20-\\udc7e])+',
+      rsTagCancel = '\\udb40\\udc7f',
       rsUpper = '[' + rsUpperRange + ']',
       rsZWJ = '\\u200d';
 
@@ -242,9 +244,10 @@
       reOptMod = rsModifier + '?',
       rsOptVar = '[' + rsVarRange + ']?',
       rsOptJoin = '(?:' + rsZWJ + '(?:' + [rsNonAstral, rsRegional, rsSurrPair].join('|') + ')' + rsOptVar + reOptMod + ')*',
+      rsOptTag = '(?:' + rsTagSpec + rsTagCancel + ')?',
       rsOrdLower = '\\d*(?:1st|2nd|3rd|(?![123])\\dth)(?=\\b|[A-Z_])',
       rsOrdUpper = '\\d*(?:1ST|2ND|3RD|(?![123])\\dTH)(?=\\b|[a-z_])',
-      rsSeq = rsOptVar + reOptMod + rsOptJoin,
+      rsSeq = rsOptVar + reOptMod + rsOptJoin + rsOptTag,
       rsEmoji = '(?:' + [rsDingbat, rsRegional, rsSurrPair].join('|') + ')' + rsSeq,
       rsSymbol = '(?:' + [rsNonAstral + rsCombo + '?', rsCombo, rsRegional, rsSurrPair, rsAstral].join('|') + ')';
 
