@@ -13,7 +13,7 @@ import baseSortedIndex from './.internal/baseSortedIndex.js'
  *  into `array`.
  * @example
  *
- * sortedLastIndex([4, 5, 5, 5, 6], 5)
+ * sortedLastIndex(['apple', 'kiwi', 'kiwi', 'kiwi', 'orange'], 'kiwi')
  * // => 4
  */
 function sortedLastIndex(array, value) {
