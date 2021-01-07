@@ -9,8 +9,8 @@ import toKey from './toKey.js'
  *
  * @private
  * @param {Object} object The object to modify.
- * @param {Array|string} path The path of the property to set.
- * @param {*} value The value to set.
+ * @param {Array | string} path The path of the property to set.
+ * @param {any} value The value to set.
  * @param {Function} [customizer] The function to customize path creation.
  * @returns {Object} Returns `object`.
  */
@@ -36,7 +36,9 @@ function baseSet(object, path, value, customizer) {
       if (newValue === undefined) {
         newValue = isObject(objValue)
           ? objValue
-          : (isIndex(path[index + 1]) ? [] : {})
+          : isIndex(path[index + 1])
+          ? []
+          : {}
       }
     }
     assignValue(nested, key, newValue)

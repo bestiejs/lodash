@@ -25,8 +25,8 @@ const dataViewTag = '[object DataView]'
 const symbolValueOf = Symbol.prototype.valueOf
 
 /**
- * A specialized version of `baseIsEqualDeep` for comparing objects of
- * the same `toStringTag`.
+ * A specialized version of `baseIsEqualDeep` for comparing objects of the same
+ * `toStringTag`.
  *
  * **Note:** This function only supports comparing values with tags of
  * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
@@ -44,16 +44,20 @@ const symbolValueOf = Symbol.prototype.valueOf
 function equalByTag(object, other, tag, bitmask, customizer, equalFunc, stack) {
   switch (tag) {
     case dataViewTag:
-      if ((object.byteLength != other.byteLength) ||
-          (object.byteOffset != other.byteOffset)) {
+      if (
+        object.byteLength != other.byteLength ||
+        object.byteOffset != other.byteOffset
+      ) {
         return false
       }
       object = object.buffer
       other = other.buffer
 
     case arrayBufferTag:
-      if ((object.byteLength != other.byteLength) ||
-          !equalFunc(new Uint8Array(object), new Uint8Array(other))) {
+      if (
+        object.byteLength != other.byteLength ||
+        !equalFunc(new Uint8Array(object), new Uint8Array(other))
+      ) {
         return false
       }
       return true
@@ -94,7 +98,14 @@ function equalByTag(object, other, tag, bitmask, customizer, equalFunc, stack) {
 
       // Recursively compare objects (susceptible to call stack limits).
       stack.set(object, other)
-      const result = equalArrays(convert(object), convert(other), bitmask, customizer, equalFunc, stack)
+      const result = equalArrays(
+        convert(object),
+        convert(other),
+        bitmask,
+        customizer,
+        equalFunc,
+        stack
+      )
       stack['delete'](object)
       return result
 

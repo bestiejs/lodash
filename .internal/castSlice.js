@@ -6,13 +6,13 @@ import slice from '../slice.js'
  * @private
  * @param {Array} array The array to inspect.
  * @param {number} start The start position.
- * @param {number} [end=array.length] The end position.
+ * @param {number} [end] The end position. Default is `array.length`
  * @returns {Array} Returns the cast slice.
  */
 function castSlice(array, start, end) {
   const { length } = array
   end = end === undefined ? length : end
-  return (!start && end >= length) ? array : slice(array, start, end)
+  return !start && end >= length ? array : slice(array, start, end)
 }
 
 export default castSlice

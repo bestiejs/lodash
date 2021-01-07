@@ -9,35 +9,44 @@ const reComboHalfMarksRange = '\\ufe20-\\ufe2f'
 const rsComboSymbolsRange = '\\u20d0-\\u20ff'
 const rsComboMarksExtendedRange = '\\u1ab0-\\u1aff'
 const rsComboMarksSupplementRange = '\\u1dc0-\\u1dff'
-const rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange + rsComboMarksExtendedRange + rsComboMarksSupplementRange
+const rsComboRange =
+  rsComboMarksRange +
+  reComboHalfMarksRange +
+  rsComboSymbolsRange +
+  rsComboMarksExtendedRange +
+  rsComboMarksSupplementRange
 
 /** Used to compose unicode capture groups. */
 const rsCombo = `[${rsComboRange}]`
 
 /**
- * Used to match [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks) and
- * [combining diacritical marks for symbols](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks_for_Symbols).
+ * Used to match [combining diacritical
+ * marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks) and
+ * [combining diacritical marks for
+ * symbols](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks_for_Symbols).
  */
 const reComboMark = RegExp(rsCombo, 'g')
 
 /**
- * Deburrs `string` by converting
- * [Latin-1 Supplement](https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)#Character_table)
+ * Deburrs `string` by converting [Latin-1
+ * Supplement](<https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)#Character_table>)
  * and [Latin Extended-A](https://en.wikipedia.org/wiki/Latin_Extended-A)
- * letters to basic Latin letters and removing
- * [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks).
+ * letters to basic Latin letters and removing [combining diacritical
+ * marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks).
  *
  * @since 3.0.0
  * @category String
- * @param {string} [string=''] The string to deburr.
- * @returns {string} Returns the deburred string.
  * @example
+ *   deburr('déjà vu')
+ *   // => 'deja vu'
  *
- * deburr('déjà vu')
- * // => 'deja vu'
+ * @param {string} [string] The string to deburr. Default is `''`
+ * @returns {string} Returns the deburred string.
  */
 function deburr(string) {
-  return string && string.replace(reLatin, deburrLetter).replace(reComboMark, '')
+  return (
+    string && string.replace(reLatin, deburrLetter).replace(reComboMark, '')
+  )
 }
 
 export default deburr

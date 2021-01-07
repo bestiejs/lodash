@@ -5,33 +5,32 @@ import MapCache from './MapCache.js'
 const LARGE_ARRAY_SIZE = 200
 
 class Stack {
-
   /**
    * Creates a stack cache object to store key-value pairs.
    *
    * @private
-   * @constructor
+   * @class
    * @param {Array} [entries] The key-value pairs to cache.
    */
   constructor(entries) {
-    const data = this.__data__ = new ListCache(entries)
+    const data = (this.__data__ = new ListCache(entries))
     this.size = data.size
   }
 
   /**
    * Removes all key-value entries from the stack.
    *
-   * @memberOf Stack
+   * @memberof Stack
    */
   clear() {
-    this.__data__ = new ListCache
+    this.__data__ = new ListCache()
     this.size = 0
   }
 
   /**
    * Removes `key` and its value from the stack.
    *
-   * @memberOf Stack
+   * @memberof Stack
    * @param {string} key The key of the value to remove.
    * @returns {boolean} Returns `true` if the entry was removed, else `false`.
    */
@@ -46,9 +45,9 @@ class Stack {
   /**
    * Gets the stack value for `key`.
    *
-   * @memberOf Stack
+   * @memberof Stack
    * @param {string} key The key of the value to get.
-   * @returns {*} Returns the entry value.
+   * @returns {any} Returns the entry value.
    */
   get(key) {
     return this.__data__.get(key)
@@ -57,7 +56,7 @@ class Stack {
   /**
    * Checks if a stack value for `key` exists.
    *
-   * @memberOf Stack
+   * @memberof Stack
    * @param {string} key The key of the entry to check.
    * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
    */
@@ -68,9 +67,9 @@ class Stack {
   /**
    * Sets the stack `key` to `value`.
    *
-   * @memberOf Stack
+   * @memberof Stack
    * @param {string} key The key of the value to set.
-   * @param {*} value The value to set.
+   * @param {any} value The value to set.
    * @returns {Object} Returns the stack cache instance.
    */
   set(key, value) {

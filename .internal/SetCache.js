@@ -4,19 +4,18 @@ import MapCache from './MapCache.js'
 const HASH_UNDEFINED = '__lodash_hash_undefined__'
 
 class SetCache {
-
   /**
    * Creates an array cache object to store unique values.
    *
    * @private
-   * @constructor
+   * @class
    * @param {Array} [values] The values to cache.
    */
   constructor(values) {
     let index = -1
     const length = values == null ? 0 : values.length
 
-    this.__data__ = new MapCache
+    this.__data__ = new MapCache()
     while (++index < length) {
       this.add(values[index])
     }
@@ -25,9 +24,9 @@ class SetCache {
   /**
    * Adds `value` to the array cache.
    *
-   * @memberOf SetCache
+   * @memberof SetCache
+   * @param {any} value The value to cache.
    * @alias push
-   * @param {*} value The value to cache.
    * @returns {Object} Returns the cache instance.
    */
   add(value) {
@@ -38,8 +37,8 @@ class SetCache {
   /**
    * Checks if `value` is in the array cache.
    *
-   * @memberOf SetCache
-   * @param {*} value The value to search for.
+   * @memberof SetCache
+   * @param {any} value The value to search for.
    * @returns {boolean} Returns `true` if `value` is found, else `false`.
    */
   has(value) {

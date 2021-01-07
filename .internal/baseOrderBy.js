@@ -10,8 +10,8 @@ const identity = (value) => value
  * The base implementation of `orderBy` without param guards.
  *
  * @private
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function[]|Object[]|string[]} iteratees The iteratees to sort by.
+ * @param {Array | Object} collection The collection to iterate over.
+ * @param {Function[] | Object[] | string[]} iteratees The iteratees to sort by.
  * @param {string[]} orders The sort orders of `iteratees`.
  * @returns {Array} Returns the new sorted array.
  */
@@ -19,7 +19,8 @@ function baseOrderBy(collection, iteratees, orders) {
   if (iteratees.length) {
     iteratees = iteratees.map((iteratee) => {
       if (Array.isArray(iteratee)) {
-        return (value) => baseGet(value, iteratee.length === 1 ? iteratee[0] : iteratee)
+        return (value) =>
+          baseGet(value, iteratee.length === 1 ? iteratee[0] : iteratee)
       }
 
       return iteratee
@@ -43,7 +44,9 @@ function baseOrderBy(collection, iteratees, orders) {
     }
   })
 
-  return baseSortBy(result, (object, other) => compareMultiple(object, other, orders))
+  return baseSortBy(result, (object, other) =>
+    compareMultiple(object, other, orders)
+  )
 }
 
 export default baseOrderBy

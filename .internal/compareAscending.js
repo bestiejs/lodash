@@ -4,8 +4,8 @@ import isSymbol from '../isSymbol.js'
  * Compares values to sort them in ascending order.
  *
  * @private
- * @param {*} value The value to compare.
- * @param {*} other The other value to compare.
+ * @param {any} value The value to compare.
+ * @param {any} other The other value to compare.
  * @returns {number} Returns the sort order indicator for `value`.
  */
 function compareAscending(value, other) {
@@ -20,22 +20,32 @@ function compareAscending(value, other) {
     const othIsReflexive = other === other
     const othIsSymbol = isSymbol(other)
 
-    const val = typeof value === 'string'
-      ? value.localeCompare(other)
-      : -other
+    const val = typeof value === 'string' ? value.localeCompare(other) : -other
 
-    if ((!othIsNull && !othIsSymbol && !valIsSymbol && val > 0) ||
-        (valIsSymbol && othIsDefined && othIsReflexive && !othIsNull && !othIsSymbol) ||
-        (valIsNull && othIsDefined && othIsReflexive) ||
-        (!valIsDefined && othIsReflexive) ||
-        !valIsReflexive) {
+    if (
+      (!othIsNull && !othIsSymbol && !valIsSymbol && val > 0) ||
+      (valIsSymbol &&
+        othIsDefined &&
+        othIsReflexive &&
+        !othIsNull &&
+        !othIsSymbol) ||
+      (valIsNull && othIsDefined && othIsReflexive) ||
+      (!valIsDefined && othIsReflexive) ||
+      !valIsReflexive
+    ) {
       return 1
     }
-    if ((!valIsNull && !valIsSymbol && !othIsSymbol && val < 0) ||
-        (othIsSymbol && valIsDefined && valIsReflexive && !valIsNull && !valIsSymbol) ||
-        (othIsNull && valIsDefined && valIsReflexive) ||
-        (!othIsDefined && valIsReflexive) ||
-        !othIsReflexive) {
+    if (
+      (!valIsNull && !valIsSymbol && !othIsSymbol && val < 0) ||
+      (othIsSymbol &&
+        valIsDefined &&
+        valIsReflexive &&
+        !valIsNull &&
+        !valIsSymbol) ||
+      (othIsNull && valIsDefined && valIsReflexive) ||
+      (!othIsDefined && valIsReflexive) ||
+      !othIsReflexive
+    ) {
       return -1
     }
   }

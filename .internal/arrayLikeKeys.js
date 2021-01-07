@@ -10,7 +10,7 @@ const hasOwnProperty = Object.prototype.hasOwnProperty
  * Creates an array of the enumerable property names of the array-like `value`.
  *
  * @private
- * @param {*} value The value to query.
+ * @param {any} value The value to query.
  * @param {boolean} inherited Specify returning inherited property names.
  * @returns {Array} Returns the array of property names.
  */
@@ -27,13 +27,16 @@ function arrayLikeKeys(value, inherited) {
     result[index] = `${index}`
   }
   for (const key in value) {
-    if ((inherited || hasOwnProperty.call(value, key)) &&
-        !(skipIndexes && (
+    if (
+      (inherited || hasOwnProperty.call(value, key)) &&
+      !(
+        skipIndexes &&
         // Safari 9 has enumerable `arguments.length` in strict mode.
-          (key === 'length' ||
-           // Skip index properties.
-           isIndex(key, length))
-        ))) {
+        (key === 'length' ||
+          // Skip index properties.
+          isIndex(key, length))
+      )
+    ) {
       result.push(key)
     }
   }

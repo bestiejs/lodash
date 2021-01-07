@@ -15,7 +15,7 @@ const COMPARE_UNORDERED_FLAG = 2
  *
  * @private
  * @param {string} path The path of the property to get.
- * @param {*} srcValue The value to match.
+ * @param {any} srcValue The value to match.
  * @returns {Function} Returns the new spec function.
  */
 function baseMatchesProperty(path, srcValue) {
@@ -24,9 +24,13 @@ function baseMatchesProperty(path, srcValue) {
   }
   return (object) => {
     const objValue = get(object, path)
-    return (objValue === undefined && objValue === srcValue)
+    return objValue === undefined && objValue === srcValue
       ? hasIn(object, path)
-      : baseIsEqual(srcValue, objValue, COMPARE_PARTIAL_FLAG | COMPARE_UNORDERED_FLAG)
+      : baseIsEqual(
+          srcValue,
+          objValue,
+          COMPARE_PARTIAL_FLAG | COMPARE_UNORDERED_FLAG
+        )
   }
 }
 

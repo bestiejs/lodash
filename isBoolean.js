@@ -6,19 +6,22 @@ import isObjectLike from './isObjectLike.js'
  *
  * @since 0.1.0
  * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a boolean, else `false`.
  * @example
+ *   isBoolean(false)
+ *   // => true
  *
- * isBoolean(false)
- * // => true
+ *   isBoolean(null)
+ *   // => false
  *
- * isBoolean(null)
- * // => false
+ * @param {any} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a boolean, else `false`.
  */
 function isBoolean(value) {
-  return value === true || value === false ||
+  return (
+    value === true ||
+    value === false ||
     (isObjectLike(value) && getTag(value) == '[object Boolean]')
+  )
 }
 
 export default isBoolean

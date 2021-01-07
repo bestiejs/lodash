@@ -5,20 +5,20 @@
  *
  * @since 3.0.0
  * @category Util
- * @param {Function[]} [funcs] The functions to invoke.
- * @returns {Function} Returns the new composite function.
- * @see flowRight
  * @example
+ *   import add from 'lodash/add'
  *
- * import add from 'lodash/add'
+ *   function square(n) {
+ *     return n * n
+ *   }
  *
- * function square(n) {
- *   return n * n
- * }
+ *   const addSquare = flow(add, square)
+ *   addSquare(1, 2)
+ *   // => 9
  *
- * const addSquare = flow(add, square)
- * addSquare(1, 2)
- * // => 9
+ * @param {Function[]} [funcs] The functions to invoke.
+ * @see flowRight
+ * @returns {Function} Returns the new composite function.
  */
 function flow(...funcs) {
   const length = funcs.length
@@ -28,7 +28,7 @@ function flow(...funcs) {
       throw new TypeError('Expected a function')
     }
   }
-  return function(...args) {
+  return function (...args) {
     let index = 0
     let result = length ? funcs[index].apply(this, args) : args[0]
     while (++index < length) {

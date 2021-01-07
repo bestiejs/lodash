@@ -20,21 +20,21 @@ const symIterator = Symbol.iterator
  *
  * @since 0.1.0
  * @category Lang
- * @param {*} value The value to convert.
- * @returns {Array} Returns the converted array.
  * @example
+ *   toArray({ a: 1, b: 2 })
+ *   // => [1, 2]
  *
- * toArray({ 'a': 1, 'b': 2 })
- * // => [1, 2]
+ *   toArray('abc')
+ *   // => ['a', 'b', 'c']
  *
- * toArray('abc')
- * // => ['a', 'b', 'c']
+ *   toArray(1)
+ *   // => []
  *
- * toArray(1)
- * // => []
+ *   toArray(null)
+ *   // => []
  *
- * toArray(null)
- * // => []
+ * @param {any} value The value to convert.
+ * @returns {Array} Returns the converted array.
  */
 function toArray(value) {
   if (!value) {
@@ -47,7 +47,7 @@ function toArray(value) {
     return iteratorToArray(value[symIterator]())
   }
   const tag = getTag(value)
-  const func = tag == mapTag ? mapToArray : (tag == setTag ? setToArray : values)
+  const func = tag == mapTag ? mapToArray : tag == setTag ? setToArray : values
 
   return func(value)
 }

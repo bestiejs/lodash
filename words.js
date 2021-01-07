@@ -16,20 +16,22 @@ function asciiWords(string) {
  *
  * @since 3.0.0
  * @category String
- * @param {string} [string=''] The string to inspect.
- * @param {RegExp|string} [pattern] The pattern to match words.
- * @returns {Array} Returns the words of `string`.
  * @example
+ *   words('fred, barney, & pebbles')
+ *   // => ['fred', 'barney', 'pebbles']
  *
- * words('fred, barney, & pebbles')
- * // => ['fred', 'barney', 'pebbles']
+ *   words('fred, barney, & pebbles', /[^, ]+/g)
+ *   // => ['fred', 'barney', '&', 'pebbles']
  *
- * words('fred, barney, & pebbles', /[^, ]+/g)
- * // => ['fred', 'barney', '&', 'pebbles']
+ * @param {string} [string] The string to inspect. Default is `''`
+ * @param {RegExp | string} [pattern] The pattern to match words.
+ * @returns {Array} Returns the words of `string`.
  */
 function words(string, pattern) {
   if (pattern === undefined) {
-    const result = hasUnicodeWord(string) ? unicodeWords(string) : asciiWords(string)
+    const result = hasUnicodeWord(string)
+      ? unicodeWords(string)
+      : asciiWords(string)
     return result || []
   }
   return string.match(pattern) || []

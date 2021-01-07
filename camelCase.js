@@ -7,25 +7,27 @@ import toString from './toString.js'
  *
  * @since 3.0.0
  * @category String
- * @param {string} [string=''] The string to convert.
- * @returns {string} Returns the camel cased string.
- * @see lowerCase, kebabCase, snakeCase, startCase, upperCase, upperFirst
  * @example
+ *   camelCase('Foo Bar')
+ *   // => 'fooBar'
  *
- * camelCase('Foo Bar')
- * // => 'fooBar'
+ *   camelCase('--foo-bar--')
+ *   // => 'fooBar'
  *
- * camelCase('--foo-bar--')
- * // => 'fooBar'
+ *   camelCase('__FOO_BAR__')
+ *   // => 'fooBar'
  *
- * camelCase('__FOO_BAR__')
- * // => 'fooBar'
+ * @param {string} [string] The string to convert. Default is `''`
+ * @see lowerCase, kebabCase, snakeCase, startCase, upperCase, upperFirst
+ * @returns {string} Returns the camel cased string.
  */
-const camelCase = (string) => (
-  words(toString(string).replace(/['\u2019]/g, '')).reduce((result, word, index) => {
-    word = word.toLowerCase()
-    return result + (index ? upperFirst(word) : word)
-  }, '')
-)
+const camelCase = (string) =>
+  words(toString(string).replace(/['\u2019]/g, '')).reduce(
+    (result, word, index) => {
+      word = word.toLowerCase()
+      return result + (index ? upperFirst(word) : word)
+    },
+    ''
+  )
 
 export default camelCase

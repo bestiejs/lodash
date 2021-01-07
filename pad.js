@@ -7,25 +7,25 @@ import stringSize from './.internal/stringSize.js'
  *
  * @since 3.0.0
  * @category String
- * @param {string} [string=''] The string to pad.
- * @param {number} [length=0] The padding length.
- * @param {string} [chars=' '] The string used as padding.
- * @returns {string} Returns the padded string.
  * @example
+ *   pad('abc', 8)
+ *   // => '  abc   '
  *
- * pad('abc', 8)
- * // => '  abc   '
+ *   pad('abc', 8, '_-')
+ *   // => '_-abc_-_'
  *
- * pad('abc', 8, '_-')
- * // => '_-abc_-_'
+ *   pad('abc', 2)
+ *   // => 'abc'
  *
- * pad('abc', 2)
- * // => 'abc'
+ * @param {string} [string] The string to pad. Default is `''`
+ * @param {number} [length] The padding length. Default is `0`
+ * @param {string} [chars] The string used as padding. Default is `' '`
+ * @returns {string} Returns the padded string.
  */
 function pad(string, length, chars) {
   const strLength = length ? stringSize(string) : 0
   if (!length || strLength >= length) {
-    return (string || '')
+    return string || ''
   }
   const mid = (length - strLength) / 2
   return (

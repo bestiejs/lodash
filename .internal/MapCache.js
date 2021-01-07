@@ -1,4 +1,3 @@
-
 import Hash from './Hash.js'
 
 /**
@@ -7,7 +6,7 @@ import Hash from './Hash.js'
  * @private
  * @param {Object} map The map to query.
  * @param {string} key The reference key.
- * @returns {*} Returns the map data.
+ * @returns {any} Returns the map data.
  */
 function getMapData({ __data__ }, key) {
   const data = __data__
@@ -20,23 +19,25 @@ function getMapData({ __data__ }, key) {
  * Checks if `value` is suitable for use as unique object key.
  *
  * @private
- * @param {*} value The value to check.
+ * @param {any} value The value to check.
  * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
  */
 function isKeyable(value) {
   const type = typeof value
-  return (type === 'string' || type === 'number' || type === 'symbol' || type === 'boolean')
-    ? (value !== '__proto__')
-    : (value === null)
+  return type === 'string' ||
+    type === 'number' ||
+    type === 'symbol' ||
+    type === 'boolean'
+    ? value !== '__proto__'
+    : value === null
 }
 
 class MapCache {
-
   /**
    * Creates a map cache object to store key-value pairs.
    *
    * @private
-   * @constructor
+   * @class
    * @param {Array} [entries] The key-value pairs to cache.
    */
   constructor(entries) {
@@ -53,21 +54,21 @@ class MapCache {
   /**
    * Removes all key-value entries from the map.
    *
-   * @memberOf MapCache
+   * @memberof MapCache
    */
   clear() {
     this.size = 0
     this.__data__ = {
-      'hash': new Hash,
-      'map': new Map,
-      'string': new Hash
+      hash: new Hash(),
+      map: new Map(),
+      string: new Hash()
     }
   }
 
   /**
    * Removes `key` and its value from the map.
    *
-   * @memberOf MapCache
+   * @memberof MapCache
    * @param {string} key The key of the value to remove.
    * @returns {boolean} Returns `true` if the entry was removed, else `false`.
    */
@@ -80,9 +81,9 @@ class MapCache {
   /**
    * Gets the map value for `key`.
    *
-   * @memberOf MapCache
+   * @memberof MapCache
    * @param {string} key The key of the value to get.
-   * @returns {*} Returns the entry value.
+   * @returns {any} Returns the entry value.
    */
   get(key) {
     return getMapData(this, key).get(key)
@@ -91,7 +92,7 @@ class MapCache {
   /**
    * Checks if a map value for `key` exists.
    *
-   * @memberOf MapCache
+   * @memberof MapCache
    * @param {string} key The key of the entry to check.
    * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
    */
@@ -102,9 +103,9 @@ class MapCache {
   /**
    * Sets the map `key` to `value`.
    *
-   * @memberOf MapCache
+   * @memberof MapCache
    * @param {string} key The key of the value to set.
-   * @param {*} value The value to set.
+   * @param {any} value The value to set.
    * @returns {Object} Returns the map cache instance.
    */
   set(key, value) {

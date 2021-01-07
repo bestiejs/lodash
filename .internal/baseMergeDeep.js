@@ -23,10 +23,17 @@ import toPlainObject from '../toPlainObject.js'
  * @param {number} srcIndex The index of `source`.
  * @param {Function} mergeFunc The function to merge values.
  * @param {Function} [customizer] The function to customize assigned values.
- * @param {Object} [stack] Tracks traversed source values and their merged
- *  counterparts.
+ * @param {Object} [stack] Tracks traversed source values and their merged counterparts.
  */
-function baseMergeDeep(object, source, key, srcIndex, mergeFunc, customizer, stack) {
+function baseMergeDeep(
+  object,
+  source,
+  key,
+  srcIndex,
+  mergeFunc,
+  customizer,
+  stack
+) {
   const objValue = object[key]
   const srcValue = source[key]
   const stacked = stack.get(srcValue)
@@ -50,32 +57,25 @@ function baseMergeDeep(object, source, key, srcIndex, mergeFunc, customizer, sta
     if (isArr || isBuff || isTyped) {
       if (Array.isArray(objValue)) {
         newValue = objValue
-      }
-      else if (isArrayLikeObject(objValue)) {
+      } else if (isArrayLikeObject(objValue)) {
         newValue = copyArray(objValue)
-      }
-      else if (isBuff) {
+      } else if (isBuff) {
         isCommon = false
         newValue = cloneBuffer(srcValue, true)
-      }
-      else if (isTyped) {
+      } else if (isTyped) {
         isCommon = false
         newValue = cloneTypedArray(srcValue, true)
-      }
-      else {
+      } else {
         newValue = []
       }
-    }
-    else if (isPlainObject(srcValue) || isArguments(srcValue)) {
+    } else if (isPlainObject(srcValue) || isArguments(srcValue)) {
       newValue = objValue
       if (isArguments(objValue)) {
         newValue = toPlainObject(objValue)
-      }
-      else if (typeof objValue === 'function' || !isObject(objValue)) {
+      } else if (typeof objValue === 'function' || !isObject(objValue)) {
         newValue = initCloneObject(srcValue)
       }
-    }
-    else {
+    } else {
       isCommon = false
     }
   }

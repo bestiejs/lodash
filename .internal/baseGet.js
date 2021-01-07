@@ -6,8 +6,8 @@ import toKey from './toKey.js'
  *
  * @private
  * @param {Object} object The object to query.
- * @param {Array|string} path The path of the property to get.
- * @returns {*} Returns the resolved value.
+ * @param {Array | string} path The path of the property to get.
+ * @returns {any} Returns the resolved value.
  */
 function baseGet(object, path) {
   path = castPath(path, object)
@@ -18,7 +18,7 @@ function baseGet(object, path) {
   while (object != null && index < length) {
     object = object[toKey(path[index++])]
   }
-  return (index && index == length) ? object : undefined
+  return index && index == length ? object : undefined
 }
 
 export default baseGet
