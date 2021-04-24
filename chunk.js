@@ -1,7 +1,7 @@
 import slice from './slice.js'
 import toInteger from './toInteger.js'
 
-/**
+/*
  * Creates an array of elements split into groups the length of `size`.
  * If `array` can't be split evenly, the final chunk will be the remaining
  * elements.
@@ -13,14 +13,38 @@ import toInteger from './toInteger.js'
  * @returns {Array} Returns the new array of chunks.
  * @example
  *
- * chunk(['a', 'b', 'c', 'd'], 2)
+ * chunk(['a','b','c','d'], 2)
  * // => [['a', 'b'], ['c', 'd']]
  *
- * chunk(['a', 'b', 'c', 'd'], 3)
+ * chunk(['a','b','c','d'], 3)
  * // => [['a', 'b', 'c'], ['d']]
+ *
+ * chunk(['a','b','c','d'],{
+ *    size: 3,
+ *    filler: 'e'
+ * })
+ * // => [['a', 'b', 'c'], ['d', 'e', 'e']]
+ *
+ * chunk(['a','b','c','d'],{
+ *    size: 3,
+ *    filler: null
+ * })
+ * // => [['a', 'b', 'c'], ['d', null, null]]
+ *
+ * chunk(['a','b','c','d'],{
+ *    size: 3,
+ *    filler: undefined
+ * })
+ * // => [[ 'a', 'b', 'c' ], [ 'd', undefined, undefined ]]
  */
-function chunk(array, size = 1) {
-  size = Math.max(toInteger(size), 0)
+function chunk(array, options) {
+  let size
+  if (typeof options !== 'object') {
+    size = Math.max(toInteger(options), 0)
+  }
+  else {
+    size = Math.max(toInteger(options.size), 0)
+  }
   const length = array == null ? 0 : array.length
   if (!length || size < 1) {
     return []
@@ -28,9 +52,15 @@ function chunk(array, size = 1) {
   let index = 0
   let resIndex = 0
   const result = new Array(Math.ceil(length / size))
-
   while (index < length) {
-    result[resIndex++] = slice(array, index, (index += size))
+    const arrayChunk = slice(array, index, (index += size))
+    const arrayChunkLength = arrayChunk.length
+    if (arrayChunkLength < size && options.hasOwnProperty('filler')) {
+      for (let i = 0; i < (size-(arrayChunkLength)); i++) {
+        arrayChunk.push(options.filler)
+      }
+    }
+    result[resIndex++] = arrayChunk
   }
   return result
 }
